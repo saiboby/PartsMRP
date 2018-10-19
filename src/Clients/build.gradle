@@ -1,0 +1,36 @@
+
+apply plugin: 'java'
+
+apply plugin: 'war'
+
+war {
+  from 'Web'
+  baseName='mrp'
+  from('./stagemonitor.properties') {
+  include 'stagemonitor.properties'
+  into 'WEB-INF/classes'
+     }
+  }
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile "org.stagemonitor:stagemonitor-configuration:0.88.8"
+	compile "org.stagemonitor:stagemonitor-tracing-elasticsearch:0.88.8"
+	compile "org.stagemonitor:stagemonitor-tracing:0.88.8"
+    compile "org.stagemonitor:stagemonitor-jdbc:0.88.8"
+    compile "org.stagemonitor:stagemonitor-jvm:0.88.8"
+    compile "org.stagemonitor:stagemonitor-os:0.88.8"
+	compile "org.stagemonitor:stagemonitor-configuration:0.88.8"
+	compile "org.stagemonitor:stagemonitor-web-servlet:0.88.8"
+	compile "org.stagemonitor:stagemonitor-alerting:0.88.8"
+	
+
+}
+
+task copyLibs(type: Copy, dependsOn: clean) {
+    into "build"
+    from configurations.compile
+}
